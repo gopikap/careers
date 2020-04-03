@@ -1,0 +1,25 @@
+@import '../../variable.scss';
+@import '../PersonalInformation/index';
+@import '../EmployementHistory/index';
+@import '../EducationQualification/index';
+
+#candiate-container {
+    margin: 0 auto;
+    width: 80%;
+    h2 {
+        text-align: center;
+    }
+    .addButton {
+        background-color: $secondary-color;
+        border: none;
+        color: $color;
+        padding: 8px 30px;
+        font-size: $normal;
+        height: 30px;
+        font-weight: $bold;
+        border-radius: 10px;
+    }
+    .info {
+        margin-top:0;
+    }
+}

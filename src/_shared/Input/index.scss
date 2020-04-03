@@ -1,0 +1,15 @@
+.textFields {
+    padding: 10px 0px 10px 0px;
+    margin: 10px;
+    label{
+        display: inline-block;
+        width: 30%;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    input, select {
+        font-size: 0.9rem;
+        border: none;
+        border-bottom: 1px solid grey;
+    }
+}

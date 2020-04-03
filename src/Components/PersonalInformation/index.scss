@@ -1,0 +1,16 @@
+@import './ProfileImage/index';
+
+#personalInfo-container {
+    display: flex;   
+    margin-top:10px; 
+    #personalInfo-personal {
+        width: 70%;            
+    }
+    #personalInfo-image {
+        display: flex;
+        flex-direction: column;
+        label{
+            font-size: 0.75rem;
+        }
+    }
+}
