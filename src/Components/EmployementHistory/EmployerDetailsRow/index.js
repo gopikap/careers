@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+import { Input } from '../../../_shared/Input';
 
 export const EmployerDetailsRow = () => {
     const [employement, setEmployement] = useState();
+    
     const employeementFields = [
         {
             name: 'companyName',
@@ -29,9 +31,39 @@ export const EmployerDetailsRow = () => {
             type: 'date'
         }
     ];
+
+    const onChange = (e) => {        
+        const {name, value} = e.target;      
+        const updatedItem = {
+            ...employement,
+            [name]: value
+        }
+        setEmployement(updatedItem);        
+    }
+
+    const renderFields = (employeementFields) => {        
+        return employeementFields.map(employeementField => {
+            const {label, name, type, isMulti, options, placeholder} = employeementField;
+            const value = employement[name];
+            return (
+                <Input 
+                    key         ={name}
+                    label       ={label} 
+                    name        ={name} 
+                    type        ={type} 
+                    options     ={options}
+                    value       ={value || ''}
+                    isMulti     ={isMulti}
+                    placeholder ={placeholder}
+                    onChange    ={onChange}
+                />
+            );
+        });
+    }
+
     return(
-        <>
-            each employeer details comes here
-        </>
+        <div id='employement-row'>
+            {renderFields(employeementFields)}
+        </div>
     )   
 }

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Modal } from '../../_shared/Modal';
+import { Button } from '../../_shared/Button';
 
 export const EducationQualification = () => {
     const [showModal, setShowModal]     = useState(false);
@@ -14,16 +15,16 @@ export const EducationQualification = () => {
     return(
         <div id='education-container'>
             <p className='info'>Please add the revelant job experiences. </p>
-            <div id='title-button'>
-                <button 
-                    className='addButton' 
-                    onClick={onClick}>Add Education</button>
-            </div>            
+            <Button
+                onClick={onClick}
+                title='Add Education'
+            />
              
-             <Modal
+            <Modal
                     className='modal'
                     show={showModal}
-                    close={toggleModal}>
+                    onClose={toggleModal}
+                    title='Add Education'>
                         Maybe aircrafts fly very high because they don't want to be seen in plane sight?
                         {/* <EmployerDetailsRow /> */}
             </Modal>
