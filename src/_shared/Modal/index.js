@@ -24,6 +24,7 @@ export const Modal = (props) => {
                 <Button
                     onClick={onClose}
                     title='Add'
+                    buttonClass='addButton'
                 />          
             </div>
         </>

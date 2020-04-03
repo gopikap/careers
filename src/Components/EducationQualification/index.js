@@ -14,7 +14,7 @@ export const EducationQualification = () => {
     }
     return(
         <div id='education-container'>
-            <p className='info'>Please add the revelant job experiences. </p>
+            <p className='info'>Please add the qualifications </p>
             <Button
                 onClick={onClick}
                 title='Add Education'
@@ -25,7 +25,7 @@ export const EducationQualification = () => {
                     show={showModal}
                     onClose={toggleModal}
                     title='Add Education'>
-                        Maybe aircrafts fly very high because they don't want to be seen in plane sight?
+                        
                         {/* <EmployerDetailsRow /> */}
             </Modal>
         </div>        
