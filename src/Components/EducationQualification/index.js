@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Modal } from '../../_shared/Modal';
 import { Button } from '../../_shared/Button';
-import { EducationDetailsForm } from './EducationDetailsForm';
 import { Table } from '../../_shared/Table';
+import { InputForm } from '../_shared/InputForm';
 
 export const EducationQualification = () => {
     const [showModal, setShowModal]         = useState(false);
@@ -15,12 +15,13 @@ export const EducationQualification = () => {
             label: 'Qualification',
             type: 'select',
             options: [
-                { text: 'Tenth', value: 'tenth' },
-                { text: 'Twelveth', value: 'twelveth' },
-                { text: 'Certificates/Training', value: 'training' },
-                { text: 'Graduate level', value: 'graduate' },
-                { text: 'Post Graduate level', value: 'postgraduate' },
-                { text: 'Doctorate level', value: 'doctorate' },
+                { text: 'Select', value: '' },
+                { text: 'Tenth', value: 'Tenth' },
+                { text: 'Twelveth', value: 'Twelveth' },
+                { text: 'Certificates/Training', value: 'Certificates/Training' },
+                { text: 'Graduate level', value: 'Graduate level' },
+                { text: 'Post Graduate level', value: 'Post Graduate level' },
+                { text: 'Doctorate level', value: 'Doctorate level' },
             ],
             required: false
         },
@@ -28,7 +29,7 @@ export const EducationQualification = () => {
             name: 'instituteName',
             label: 'Institute Name',
             type: 'text',
-            placeholder: 'Institue Name',
+            placeholder: 'Institute Name',
             required: true
         },
         {
@@ -57,11 +58,12 @@ export const EducationQualification = () => {
             label: 'Result',
             type: 'select',
             options: [
-                { value: 'third', text: 'Third Class' },
-                { value: 'second', text: 'Second Class' },
-                { value: 'first', text: 'First Class' },
-                { value: 'distinction', text: 'First Class with Distinction' },
-                { value: 'notApplicable', text: 'Not Applicable' }
+                { text: 'Select', value: '' },
+                { text: 'Third Class', value: 'Third Class'  },
+                { text: 'Second Class', value: 'Second Class'  },
+                { text: 'First Class', value: 'First Class' },
+                { text: 'First Class with Distinction', value: 'First Class with Distinction' },
+                { text: 'Not Applicable', value: 'Not Applicable' }
             ],
             required: false
         }
@@ -97,7 +99,7 @@ export const EducationQualification = () => {
 
     return (
         <div id='education-container'>
-            <p className='info'>Please add the qualifications </p>
+            <p className='info'>Please add the education qualifications! </p>
             <Table
                 tableHeaders={educationFields}
                 tableRows={educationList}
@@ -111,11 +113,12 @@ export const EducationQualification = () => {
                 show={showModal}
                 onClose={toggleModal}
                 title='Add Education'>
-                <EducationDetailsForm
+                <InputForm
                     formFields={educationFields}
                     onChange={onChange}
-                    education={education}
+                    sectionData={education}
                     onAdd={onAdd}
+
                 />
             </Modal>            
         </div>

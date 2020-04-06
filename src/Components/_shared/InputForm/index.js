@@ -1,22 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Input } from '../../../_shared/Input';
+import { Button } from '../../../_shared/Button';
 
-export const EmployerDetailsForm = (props) => {
-    const [employement, setEmployement] = useState();    
-    const { formFields }                = props;
-    const onChange = (e) => {        
-        const {name, value} = e.target;      
-        const updatedItem = {
-            ...employement,
-            [name]: value
-        }
-        setEmployement(updatedItem);        
-    }
-
+export const InputForm = (props) => {
+    const { formFields, sectionData, onChange, onAdd }    = props;    
+    
     const renderFields = (formFields) => {  
         return formFields.map(formField => {
             const {label, name, type, isMulti, options, placeholder} = formField;
-            const value = employement && employement[name];
+            const value = sectionData && sectionData[name];
             return (
                 <Input 
                     key         ={name}
@@ -29,13 +21,18 @@ export const EmployerDetailsForm = (props) => {
                     placeholder ={placeholder}
                     onChange    ={onChange}
                 />
-            );
+            );            
         });
     }
 
     return(
-        <div id='employement-row'>
+        <div id='input-row'>
             {renderFields(formFields)}
+            <Button
+                onClick={onAdd}
+                title='Add'
+                buttonClass='addButton'
+            /> 
         </div>
     )   
 }
