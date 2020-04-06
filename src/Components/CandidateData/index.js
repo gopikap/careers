@@ -1,6 +1,5 @@
 import React from 'react';
 import { PersonalInformation } from '../PersonalInformation';
-//import { Accordion } from '../../_shared/Accordion';
 import { EducationQualification } from '../EducationQualification';
 import { EmploymentHistory } from '../EmployementHistory';
 import { Section } from '../../_shared/Section';
