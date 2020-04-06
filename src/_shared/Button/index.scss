@@ -1,0 +1,15 @@
+@import '../../variable.scss';
+
+.button {
+    background-color: $secondary-color;
+    border: none;
+    color: $color;
+    padding: 8px 30px;
+    font-size: $normal;
+    height: 30px;
+    font-weight: $bold;
+    border-radius: 10px;
+}
+.addButton {
+    margin-left:45%;
+}

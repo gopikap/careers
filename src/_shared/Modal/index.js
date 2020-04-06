@@ -1,15 +1,11 @@
 import React from "react";
 import './index.scss';
-import { Button } from "../Button";
 
-export const Modal = (props) => {
-    
+export const Modal = (props) => {    
     const { show, onClose, children, title }     = props;
-
     if (!show) {
         return null;
-    }
-    
+    }    
     return (
         <>
             { show ? <div onClick={onClose} className="back-drop"></div> : null }
@@ -20,12 +16,7 @@ export const Modal = (props) => {
                 </div>
                 <div className="modal-body">
                         {children}
-                </div>
-                <Button
-                    onClick={onClose}
-                    title='Add'
-                    buttonClass='addButton'
-                />          
+                </div>                         
             </div>
         </>
     );  

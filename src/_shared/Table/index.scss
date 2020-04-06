@@ -1,0 +1,18 @@
+@import '../../variable.scss';
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 15px;
+    td, th {
+        border: $border;
+        text-align: left;
+        padding: 8px;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+  }
+  
+  
