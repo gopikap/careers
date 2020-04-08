@@ -6,71 +6,123 @@ import { Table } from '../../_shared/Table';
 import { InputForm } from '../_shared/InputForm';
 
 export const EmploymentHistory = () => {
-    
-    const [showModal, setShowModal]             = useState(false);
-    const [employement, setEmployement]         = useState({});
-    const [employementList, setEmployementList] = useState([]);
-
-    const employeementFields = [
-        {
-            name: 'companyName',
-            label: 'Company Name',
-            type: 'text',
-            placeholder: 'Company Co',
-            required: true
-        },        
-        {
-            name: 'designation',
-            label: 'Designation',
-            type: 'text',
-            placeholder: 'Software Developer',
-            required: false
-        },
-        {
-            name: 'responsibility',
-            label: 'Job responsibility',
-            type: 'text',
-            isMulti: true,
-            placeholder: 'Software Developer',
-            required: false
-        },
-        {
-            name: 'from',
-            label: 'From',
-            type: 'date'
-        },
-        {
-            name: 'till',
-            label: 'Till',
-            type: 'date'
-        }
-    ];
-
+    const initialData  = {
+        companyName: '', 
+        designation: '',
+        responsibility: '',
+        from: '',
+        till: ''
+    };
+    const initialState                              = {
+        employement:        initialData,
+        showModal:          false,
+        emptyFiledsError:   false,
+        employementList:    [],
+        employeementFields: [
+            {
+                name: 'companyName',
+                label: 'Company Name',
+                type: 'text',
+                placeholder: 'Company Co',
+                validations: {
+                    required: true
+                },
+                touched: false
+            },        
+            {
+                name: 'designation',
+                label: 'Designation',
+                type: 'text',
+                placeholder: 'Software Developer',
+                validations: {
+                    required: true
+                },
+                touched: false
+            },
+            {
+                name: 'responsibility',
+                label: 'Job responsibility',
+                type: 'text',
+                isMulti: true,
+                placeholder: 'Software Developer'            
+            },
+            {
+                name: 'from',
+                label: 'From',
+                type: 'date',
+                validations: {
+                    required: true
+                },
+                touched: false
+            },
+            {
+                name: 'till',
+                label: 'Till',
+                type: 'date'
+            }
+        ]
+    }
+    const [state, setState] = useState(initialState);
+    const updateState = data => setState(prevState => ({ ...prevState, ...data }));
     
     const onClick = () => {
-        setShowModal(true);     
+        updateState({showModal: true});     
     }
 
     const toggleModal = () => {
-        setShowModal(!showModal);
+        updateState({showModal: !state.showModal});
     }
 
     const onChange = (e) => {
         const { name, value } = e.target;
-        const updatedItem = {
-            ...employement,
+        const updatedEmployement = {
+            ...state.employement,
             [name]: value
         }
-        setEmployement(updatedItem);
+        const updatedFields = state.employeementFields.map(field => {
+            if ( field.name === name ) { 
+                field.touched  = true
+            }
+            return field;
+        });
+        setState({
+            employement: updatedEmployement, 
+            employeementFields: updatedFields
+        });
+    }
+
+    const isRequiredFieldsEmpty = () => {
+        const requiredFields = state.employeementFields.filter(
+                        ({validations}) =>  validations && validations.required === true);
+        const isEmptyFields = requiredFields.map(
+            requiredField => {
+                const {name}    = requiredField;
+                return (state.employement[name] !== '' && state.employement[name] !== null);
+            }
+        )
+        return isEmptyFields;
     }
 
     const onAdd = () => {
-        setEmployementList(
-            [
-                ...employementList,
-                employement
-            ]
-        )
+        const isEmptyFields  =  isRequiredFieldsEmpty();
+        if (isEmptyFields.includes(false)) {
+            setState({emptyFiledsError: true});
+            return;
+        }
+        state.employeementFields.map(field => {
+            field.touched  = false;
+            return field;
+        });
+
+        const updatedEmployementList = [
+            ...state.employementList,
+            state.employement
+        ];
+        setState({
+            employementList: updatedEmployementList,
+            emptyFiledsError: false,
+            employement: initialData
+        });
         toggleModal();
     }
 
@@ -78,8 +130,8 @@ export const EmploymentHistory = () => {
         <div id='employement-container'>
             <p className='info'>Please add the revelant job experiences. </p>
             <Table
-                tableHeaders={employeementFields}
-                tableRows   ={employementList}
+                tableHeaders={state.employeementFields}
+                tableRows   ={state.employementList}
             />
             <Button
                 onClick    ={onClick}
@@ -87,14 +139,15 @@ export const EmploymentHistory = () => {
             />
              <Modal
                 className   ='modal'
-                show        ={showModal}
+                show        ={state.showModal}
                 onClose     ={toggleModal}
                 title       ='Add Employement'>
                 <InputForm
-                    formFields={employeementFields}
+                    formFields={state.employeementFields}
                     onChange={onChange}
-                    sectionData={employement}
+                    sectionData={state.employement}
                     onAdd={onAdd}
+                    emptyFields={state.emptyFiledsError}
                 />
             </Modal>
         </div>        

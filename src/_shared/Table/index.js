@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 
 export const Table = ({ tableRows, onDelete, tableHeaders}) => {
-
+    console.log('name');
     const renderHeader = (tableHeader) => {
         const { name, label } = tableHeader;
         return (
@@ -13,8 +13,12 @@ export const Table = ({ tableRows, onDelete, tableHeaders}) => {
     const renderTableRow = (tableRow) => {
         return tableHeaders.map((column, index) => {
             const {name} = column;
+            let rowValue = tableRow[name];
+            if (name === 'till' && rowValue === '') {
+                rowValue = 'Present'
+            }
             return (
-                <td key={index}>{tableRow[name]}</td>
+                <td key={index}>{rowValue}</td>
             );
         })
     }

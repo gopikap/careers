@@ -3,7 +3,7 @@ import './index.scss';
 import { TextField } from './TextField';
 
 export const Input = (props) => {
-    const { label, name, type, value, options, placeholder, onChange, isMulti } = props;
+    const { label, name, type, value, options, placeholder, onChange, isMulti, isValid, touched } = props;
     
     const textInput = <TextField 
                             key={name}
@@ -12,7 +12,8 @@ export const Input = (props) => {
                             name={name}
                             placeholder={placeholder}
                             isMulti={isMulti}
-                            //error={showErrorNeeded}
+                            isValid={isValid}
+                            touched={touched}
                             onChange={onChange}
                         />
 
@@ -49,8 +50,11 @@ export const Input = (props) => {
 
     return(
         <div className='textFields' key={name}>
-            <label>{label}</label>
-             {renderInputs()}           
+            <label>{label}</label>            
+             {renderInputs()}     
+             { (touched && !isValid) ? (
+                    <p className='error-message'>Enter a valid {label}</p>
+                ) : null}      
         </div>
     )
 }

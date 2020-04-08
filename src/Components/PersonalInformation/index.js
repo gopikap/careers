@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ProfileImage } from './ProfileImage';
-import { Input } from '../../_shared/Input';
+import { InputForm } from '../_shared/InputForm';
 
 export const PersonalInformation = () => {
-    const [info, setInfo]   = useState({
+    const [personalInfo, setPersonalInfo]   = useState({
         name: '', 
         email: '',
         gender: '',
@@ -13,13 +13,18 @@ export const PersonalInformation = () => {
         zip: ''
     });
     
-    const personalFields = [
+    const [personalFields, setPersonalFileds] = useState([
         {
             name: 'name',
             label: 'Name',
             type: 'text',
             placeholder: 'John',
-            required: true
+            validations: {
+                required: true,
+                isString: true
+            },
+            touched: false
+            
         },
         
         {
@@ -27,13 +32,23 @@ export const PersonalInformation = () => {
             label: 'Email',
             type: 'text',
             placeholder: 'john@yembo.ai',
-            required: true
+            validations: {
+                required: true,
+                isEmail: true
+            },
+            touched: false
         },
         {
             name: 'phone',
             label: 'Phone',
             type: 'text',
-            placeholder: '+1'
+            placeholder: '+1',
+            validations: {
+                minLength: 10,
+                maxLength: 20,
+                isNumeric: true
+            },
+            touched: false
         },
         {
             name: 'gender',
@@ -49,9 +64,7 @@ export const PersonalInformation = () => {
         {
             name: 'dob',
             label: 'Date of birth',
-            type: 'date',
-            placeholder: 'John',
-            required: true
+            type: 'date'
         },
         {
             name: 'address',
@@ -64,44 +77,41 @@ export const PersonalInformation = () => {
             name: 'zip',
             label: 'Zip code',
             type: 'text',
-            placeholder: '691021'
+            placeholder: '691021',
+            validations:{
+                minLength: 5,
+                maxLength: 6,
+                isNumeric: true
+            },
+            touched: false
         }
-    ];
+    ]);
 
     const onChange = (e) => {        
         const {name, value} = e.target;      
         const updatedItem = {
-            ...info,
+            ...personalInfo,
             [name]: value
         }
-        setInfo(updatedItem);        
-    }
-
-    const renderFields = (inputFields) => {        
-        return inputFields.map(inputField => {
-            const {label, name, type, isMulti, options, placeholder} = inputField;
-            const value = info[name];
-            return (
-                <Input 
-                    key         ={name}
-                    label       ={label} 
-                    name        ={name} 
-                    type        ={type} 
-                    options     ={options}
-                    value       ={value || ''}
-                    isMulti     ={isMulti}
-                    placeholder ={placeholder}
-                    onChange    ={onChange}
-                />
-            );
+        const updatedFields = personalFields.map(field => {
+            if ( field.name === name ) { 
+                field.touched  = true
+            }
+            return field;
         });
+        
+        setPersonalFileds(updatedFields);
+        setPersonalInfo(updatedItem);        
     }
-
 
     return(
         <div id='personalInfo-container'>
-            <div id='personalInfo-personal'>
-                {renderFields(personalFields)}
+            <div id='personalInfo-personal'>                
+                <InputForm
+                    formFields={personalFields}
+                    onChange={onChange}
+                    sectionData={personalInfo}
+                />
             </div>
             <div id='personalInfo-image'>
                 <ProfileImage />

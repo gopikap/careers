@@ -1,6 +1,10 @@
 .textFields {
     padding: 10px 0px 10px 0px;
     margin: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
     label{
         display: inline-block;
         width: 30%;
@@ -11,5 +15,15 @@
         font-size: 0.9rem;
         border: none;
         border-bottom: 1px solid grey;
+        outline: none;
+    }
+    .error {
+        border-bottom: 1px solid red;
+    }
+    .error-message{
+        font-size: 0.75rem;
+        color: red;
+        padding: 0;
+        margin: 0;
     }
 }

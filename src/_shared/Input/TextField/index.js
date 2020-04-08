@@ -1,15 +1,20 @@
 import React from 'react';
 
 export const TextField = (props) => {
-    const { name, type, value, placeholder, onChange, isMulti } = props;
-    
+
+    const { name, type, value, placeholder, onChange, isMulti, isValid, touched } = props;
+    let textClassNames  =[];
+    if ( touched && !isValid ) {
+        textClassNames.push('error');
+        textClassNames = textClassNames.join(' ');
+    }
     return(
-        
             isMulti ?            
                 <textarea
                     name={name}
                     onChange={onChange}    
                     value={value}
+                    placeholder={placeholder}
                 />
                 :
                 <input
@@ -18,9 +23,8 @@ export const TextField = (props) => {
                     value={value}
                     name={name}
                     placeholder={placeholder}
-                    //error={showErrorNeeded}
                     onChange={onChange}
+                    className={textClassNames}
                 />
     )
-
 }

@@ -23,35 +23,45 @@ export const EducationQualification = () => {
                 { text: 'Post Graduate level', value: 'Post Graduate level' },
                 { text: 'Doctorate level', value: 'Doctorate level' },
             ],
-            required: false
+            validations: {
+                required: true
+            }
         },
         {
             name: 'instituteName',
             label: 'Institute Name',
             type: 'text',
             placeholder: 'Institute Name',
-            required: true
+            validations: {
+                required: true
+            }
         },
         {
             name: 'university',
             label: 'University/Board',
             type: 'text',
             placeholder: 'University/Board Name',
-            required: true
+            validations: {
+                required: true
+            }
         },
         {
             name: 'subject',
             label: 'Subject',
             type: 'text',
             placeholder: 'eg: Information Technology',
-            required: true
+            validations: {
+                required: true
+            }
         },
         {
             name: 'year',
             label: 'Year',
             type: 'number',
             placeholder: 'Passed out year:- 2000',
-            required: false
+            validations: {
+                required: true
+            }
         },
         {
             name: 'result',
@@ -95,6 +105,7 @@ export const EducationQualification = () => {
             ]
         )
         toggleModal();
+        setEducation({});
     }
 
     return (
@@ -118,7 +129,6 @@ export const EducationQualification = () => {
                     onChange={onChange}
                     sectionData={education}
                     onAdd={onAdd}
-
                 />
             </Modal>            
         </div>
