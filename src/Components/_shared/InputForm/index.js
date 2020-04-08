@@ -5,9 +5,10 @@ import { CheckValidity } from '../../../_util/checkValidity';
 
 export const InputForm = (props) => {
 
-    const { formFields, sectionData, onChange, onAdd, emptyFields }    = props;    
+    const { formFields, sectionData, onChange, onAdd, hasEmptyFields }    = props;    
     let isValid = true;
     let isTouched=false;
+
     const renderFields = (formFields) => {  
         return formFields.map(formField => {
             const {label, name, type, isMulti, options, placeholder, validations, touched} = formField;
@@ -27,6 +28,7 @@ export const InputForm = (props) => {
                     onChange    ={onChange}
                     touched     ={isTouched}
                     isValid     ={isValid}
+                    required    ={validations && validations.required}
                 />
             );            
         });
@@ -42,7 +44,7 @@ export const InputForm = (props) => {
                     title='Add'
                     buttonClass='addButton'
                 />
-                 {emptyFields ? <span className='error-message'>Please enter required fields</span> : null}
+                 {hasEmptyFields ? <span className='error-message'>Please enter required fields</span> : null}
                 </>
             : null }
         </div>

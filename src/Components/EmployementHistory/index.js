@@ -4,6 +4,7 @@ import { Modal } from '../../_shared/Modal';
 import { Button } from '../../_shared/Button';
 import { Table } from '../../_shared/Table';
 import { InputForm } from '../_shared/InputForm';
+import { getRequiredEmptyFields } from '../../_util/getRequiredEmptyFields';
 
 export const EmploymentHistory = () => {
     const initialData   = {
@@ -16,7 +17,7 @@ export const EmploymentHistory = () => {
     const initialState  = {
         employement:        initialData,
         showModal:          false,
-        emptyFiledsError:   false,
+        emptyFieldsError:   false,
         employementList:    [],
         employeementFields: [
             {
@@ -87,29 +88,16 @@ export const EmploymentHistory = () => {
             }
             return field;
         });
-        console.log('show modal', state.showModal);
         updateState({
             employement: updatedEmployement, 
             employeementFields: updatedFields
         });
     }
 
-    const isRequiredFieldsEmpty = () => {
-        const requiredFields = state.employeementFields.filter(
-                        ({validations}) =>  validations && validations.required === true);
-        const isEmptyFields = requiredFields.map(
-            requiredField => {
-                const {name}    = requiredField;
-                return (state.employement[name] !== '' && state.employement[name] !== null);
-            }
-        )
-        return isEmptyFields;
-    }
-
     const onAdd = () => {
-        const isEmptyFields  =  isRequiredFieldsEmpty();
-        if (isEmptyFields.includes(false)) {
-            updateState({emptyFiledsError: true});
+        const hasEmptyFields  =  getRequiredEmptyFields(state.employeementFields, state.employement);
+        if (hasEmptyFields) {
+            updateState({emptyFieldsError: true});
             return;
         }
 
@@ -122,16 +110,15 @@ export const EmploymentHistory = () => {
             ...state.employementList,
             state.employement
         ];
+        
         updateState({
             employementList:    updatedEmployementList,
-            emptyFiledsError:   false,
+            emptyFieldsError:   false,
             employement:        initialData,
             employeementFields: updatedFields
         });
         toggleModal();
     }
-
-    console.log(state.employeementFields);
 
     return(
         <div id='employement-container'>
@@ -154,7 +141,7 @@ export const EmploymentHistory = () => {
                     onChange={onChange}
                     sectionData={state.employement}
                     onAdd={onAdd}
-                    emptyFields={state.emptyFiledsError}
+                    hasEmptyFields={state.emptyFieldsError}
                 />
             </Modal>
         </div>        
