@@ -6,14 +6,14 @@ import { Table } from '../../_shared/Table';
 import { InputForm } from '../_shared/InputForm';
 
 export const EmploymentHistory = () => {
-    const initialData  = {
+    const initialData   = {
         companyName: '', 
         designation: '',
         responsibility: '',
         from: '',
         till: ''
     };
-    const initialState                              = {
+    const initialState  = {
         employement:        initialData,
         showModal:          false,
         emptyFiledsError:   false,
@@ -44,7 +44,8 @@ export const EmploymentHistory = () => {
                 label: 'Job responsibility',
                 type: 'text',
                 isMulti: true,
-                placeholder: 'Software Developer'            
+                placeholder: 'Software Developer',
+                touched: false
             },
             {
                 name: 'from',
@@ -58,7 +59,8 @@ export const EmploymentHistory = () => {
             {
                 name: 'till',
                 label: 'Till',
-                type: 'date'
+                type: 'date',
+                touched: false
             }
         ]
     }
@@ -85,7 +87,8 @@ export const EmploymentHistory = () => {
             }
             return field;
         });
-        setState({
+        console.log('show modal', state.showModal);
+        updateState({
             employement: updatedEmployement, 
             employeementFields: updatedFields
         });
@@ -106,10 +109,11 @@ export const EmploymentHistory = () => {
     const onAdd = () => {
         const isEmptyFields  =  isRequiredFieldsEmpty();
         if (isEmptyFields.includes(false)) {
-            setState({emptyFiledsError: true});
+            updateState({emptyFiledsError: true});
             return;
         }
-        state.employeementFields.map(field => {
+
+        const updatedFields = state.employeementFields.map(field => {
             field.touched  = false;
             return field;
         });
@@ -118,13 +122,16 @@ export const EmploymentHistory = () => {
             ...state.employementList,
             state.employement
         ];
-        setState({
-            employementList: updatedEmployementList,
-            emptyFiledsError: false,
-            employement: initialData
+        updateState({
+            employementList:    updatedEmployementList,
+            emptyFiledsError:   false,
+            employement:        initialData,
+            employeementFields: updatedFields
         });
         toggleModal();
     }
+
+    console.log(state.employeementFields);
 
     return(
         <div id='employement-container'>

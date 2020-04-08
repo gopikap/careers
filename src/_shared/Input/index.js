@@ -26,6 +26,7 @@ export const Input = (props) => {
             ))
         }
     }
+    
     const select = (
             <select
                 name={name}
