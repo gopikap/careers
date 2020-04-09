@@ -144,12 +144,19 @@ export const EducationQualification = () => {
         toggleModal();
     }
 
+    const onDelete = (i) => {
+        const updatedEducationList = [...state.educationList];
+        updatedEducationList.splice(i,1);
+        updateState({educationList: updatedEducationList});
+    }
+
     return (
-        <div id='education-container'>
+        <>
             <p className='info'>Please add the education qualifications! </p>
             <Table
                 tableHeaders={state.educationFields}
-                tableRows={state.educationList}
+                tableRows   ={state.educationList}
+                onDelete    ={onDelete} 
             />
             <Button
                 onClick={onClick}
@@ -168,6 +175,6 @@ export const EducationQualification = () => {
                     hasEmptyFields={state.emptyFieldsError}
                 />
             </Modal>            
-        </div>
+        </>
     )
 }
