@@ -3,6 +3,7 @@ import { PersonalInformation } from '../PersonalInformation';
 import { EducationQualification } from '../EducationQualification';
 import { EmploymentHistory } from '../EmployementHistory';
 import { Section } from '../../_shared/Section';
+import { UploadDocuments } from '../UploadDocuments';
 
 export const CandidateData = () => {
     const sections = [
@@ -18,6 +19,10 @@ export const CandidateData = () => {
             name: 'Education Qualification',
             component: <EducationQualification/>
         },
+        {
+            name: 'Upload Documents',
+            component: <UploadDocuments/>
+        }
     ];
 
     const renderSection = (section) => {

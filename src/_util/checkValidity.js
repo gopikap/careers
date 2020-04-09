@@ -8,6 +8,11 @@ export const CheckValidity = ( value, rules ) => {
         isValid = value !== '' && isValid;
     }
 
+    if (rules.isString) {
+        const pattern =  /^[A-Za-z ]+$/;        
+        isValid = pattern.test( value ) && isValid
+    }
+
     if ( rules.minLength ) {
         isValid = value.length >= rules.minLength && isValid
     }
