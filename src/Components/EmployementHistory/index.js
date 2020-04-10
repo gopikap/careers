@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 //import { generateKey } from '../../_util/generateKey';
-import { Modal } from '../../_shared/Modal';
 import { Button } from '../../_shared/Button';
 import { Table } from '../../_shared/Table';
-import { InputForm } from '../_shared/InputForm';
 import { getRequiredEmptyFields } from '../../_util/getRequiredEmptyFields';
+import { AddItemModal } from '../_shared/AddItemModal';
 
 export const EmploymentHistory = () => {
     const initialData   = {
@@ -77,6 +76,7 @@ export const EmploymentHistory = () => {
     }
 
     const onChange = (e) => {
+        console.log('here')
         const { name, value } = e.target;
         const updatedEmployement = {
             ...state.employement,
@@ -123,27 +123,26 @@ export const EmploymentHistory = () => {
     return(
         <div id='employement-container'>
             <p className='info'>Please add the revelant job experiences. </p>
-            <Table
-                tableHeaders={state.employeementFields}
-                tableRows   ={state.employementList}
-            />
+            { state.employementList !== null ?
+                <Table
+                    tableHeaders={state.employeementFields}
+                    tableRows   ={state.employementList}
+                /> : null
+            }
             <Button
                 onClick    ={onClick}
                 title      ='Add Employment'                
             />
-             <Modal
-                className   ='modal'
-                show        ={state.showModal}
-                onClose     ={toggleModal}
-                title       ='Add Employement'>
-                <InputForm
-                    formFields={state.employeementFields}
-                    onChange={onChange}
-                    sectionData={state.employement}
-                    onAdd={onAdd}
-                    hasEmptyFields={state.emptyFieldsError}
-                />
-            </Modal>
+            <AddItemModal 
+                show            ={state.showModal}
+                onClose         ={toggleModal}
+                title           ='Add Employement'
+                formFields      ={state.employeementFields}
+                onChange        ={onChange}
+                data            ={state.employement}
+                onAdd           ={onAdd}
+                hasEmptyFields  ={state.emptyFieldsError}
+            />
         </div>        
     )
 }
