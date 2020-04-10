@@ -68,7 +68,7 @@ export const EmploymentHistory = () => {
     // const [state, setState] = useState(initialState);
     // const updateState = data => setState(prevState => ({ ...prevState, ...data }));
     
-    const[state, dispatch] = useReducer(candidateDataReducer, initialState);
+    const [state, dispatch] = useReducer(candidateDataReducer, initialState);
 
     const onClick = () => { 
         dispatch({type:'SHOWMODAL'})
@@ -86,7 +86,7 @@ export const EmploymentHistory = () => {
         //     [name]: value
         // }
         // const updatedFields = state.employeementFields.map(field => {
-        //     if ( field.name === name ) { 
+        //     if ( field.name === name ) {  
         //         field.touched  = true
         //     }
         //     return field;
@@ -155,6 +155,6 @@ export const EmploymentHistory = () => {
                     hasEmptyFields={state.emptyFieldsError}
                 />
             </Modal>
-        </>        
+        </>         
     )
 }
