@@ -3,8 +3,9 @@ import "./index.scss";
 
 export const Section = (props) => {
     const { title, children } = props
+    const idName = title.toLowerCase().split(' ').join('-');
     return (
-        <div className="section">
+        <div className="section" id={idName}>
             <div className="section_title">
                 {title}
             </div>

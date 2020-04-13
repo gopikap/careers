@@ -39,7 +39,10 @@ export const CandidateData = () => {
     return(
         <div id='candiate-container'>
             <h2>Candidate Job Application Form</h2>
-            {sections.map( section => renderSection(section))}            
+            <div className='sections-container'>
+            {sections.map( section => renderSection(section))}
+            </div>
+                        
         </div>
     )
 }

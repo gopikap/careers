@@ -3,7 +3,7 @@ import './index.scss';
 
 export const Modal = (props) => {    
     const { show, onClose, children, title }     = props;
-    console.log(props);
+    
     if (!show) {
         return null;
     }    

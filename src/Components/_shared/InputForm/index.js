@@ -11,10 +11,12 @@ export const InputForm = (props) => {
 
     const renderFields = (formFields) => {  
         return formFields.map(formField => {
+            
             const {label, name, type, isMulti, options, placeholder, validations, touched} = formField;
             const value = sectionData && sectionData[name]; 
             isValid     = CheckValidity(value, validations);
             isTouched   = touched;
+
             return (
                 <Input 
                     key         ={name}

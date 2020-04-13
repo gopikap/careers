@@ -1,3 +1,4 @@
+//TODO Gopika try to combine filter and map.
 export const getRequiredEmptyFields = (formFields, values) => {
     const requiredFields = formFields.filter(
                                 ({validations}) =>  (validations && validations.required === true)

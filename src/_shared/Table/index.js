@@ -1,8 +1,9 @@
 import React from 'react';
 import './index.scss';
+import DeleteIcon from '../../assests/delete.png'
 
 export const Table = ({ tableRows, onDelete, tableHeaders}) => {
-    console.log('name');
+    
     const renderHeader = (tableHeader) => {
         const { name, label } = tableHeader;
         return (
@@ -38,7 +39,9 @@ export const Table = ({ tableRows, onDelete, tableHeaders}) => {
                         return(
                             <tr key={i}>
                                 {renderTableRow(tableRow)}
-                                <td><span onClick={() => onDelete(i)} />de</td>
+                                <td>
+                                    <img onClick={() => onDelete(i)} src={DeleteIcon} alt='Delete' />                                
+                                </td>
                             </tr>
                         );
                     })}

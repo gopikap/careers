@@ -67,16 +67,15 @@ export const EmploymentHistory = () => {
     const [state, setState] = useState(initialState);
     const updateState = data => setState(prevState => ({ ...prevState, ...data }));
     
-    const onClick = () => {
-        updateState({showModal: true});     
+    const onClick = () => { 
+        updateState({showModal: true});
     }
 
-    const toggleModal = () => {
+    const toggleModal = () => {         
         updateState({showModal: !state.showModal});
     }
 
     const onChange = (e) => {
-        console.log('here')
         const { name, value } = e.target;
         const updatedEmployement = {
             ...state.employement,
@@ -94,7 +93,7 @@ export const EmploymentHistory = () => {
         });
     }
 
-    const onAdd = () => {
+     const onAdd = () => {
         const hasEmptyFields  =  getRequiredEmptyFields(state.employeementFields, state.employement);
         if (hasEmptyFields) {
             updateState({emptyFieldsError: true});
@@ -120,15 +119,22 @@ export const EmploymentHistory = () => {
         toggleModal();
     }
 
+    const onDelete = (i) => {
+        const updatedEmployementList = [...state.employementList];
+        updatedEmployementList.splice(i,1);
+        updateState({employementList: updatedEmployementList});
+    }
+
     return(
-        <div id='employement-container'>
+        <>
             <p className='info'>Please add the revelant job experiences. </p>
-            { state.employementList !== null ?
+            { state.employementList.length > 0 ? 
                 <Table
                     tableHeaders={state.employeementFields}
+                    onDelete    ={onDelete}
                     tableRows   ={state.employementList}
                 /> : null
-            }
+            }   
             <Button
                 onClick    ={onClick}
                 title      ='Add Employment'                
@@ -143,6 +149,6 @@ export const EmploymentHistory = () => {
                 onAdd           ={onAdd}
                 hasEmptyFields  ={state.emptyFieldsError}
             />
-        </div>        
+        </>        
     )
 }

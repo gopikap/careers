@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Modal } from '../../_shared/Modal';
 import { Button } from '../../_shared/Button';
 import { Table } from '../../_shared/Table';
-import { InputForm } from '../_shared/InputForm';
 import { getRequiredEmptyFields } from '../../_util/getRequiredEmptyFields';
+import { AddItemModal } from '../_shared/AddItemModal';
 
 export const EducationQualification = () => {
     const initialData = {
@@ -144,30 +143,34 @@ export const EducationQualification = () => {
         toggleModal();
     }
 
+    const onDelete = (i) => {
+        const updatedEducationList = [...state.educationList];
+        updatedEducationList.splice(i,1);
+        updateState({educationList: updatedEducationList});
+    }
+
     return (
-        <div id='education-container'>
+        <>
             <p className='info'>Please add the education qualifications! </p>
             <Table
                 tableHeaders={state.educationFields}
-                tableRows={state.educationList}
+                tableRows   ={state.educationList}
+                onDelete    ={onDelete} 
             />
             <Button
                 onClick={onClick}
                 title='Add Education'
-            />            
-            <Modal
-                className='modal'
-                show={state.showModal}
-                onClose={toggleModal}
-                title='Add Education'>
-                <InputForm
-                    formFields={state.educationFields}
-                    onChange={onChange}
-                    sectionData={state.education}
-                    onAdd={onAdd}
-                    hasEmptyFields={state.emptyFieldsError}
-                />
-            </Modal>            
-        </div>
+            /> 
+            <AddItemModal 
+                show            ={state.showModal}
+                onClose         ={toggleModal}
+                title           ='Add Education'
+                formFields      ={state.educationFields}
+                onChange        ={onChange}
+                data            ={state.education}
+                onAdd           ={onAdd}
+                hasEmptyFields  ={state.emptyFieldsError}
+            /> 
+        </>
     )
 }
