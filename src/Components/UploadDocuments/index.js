@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from '../../_shared/Button';
 import { Modal } from '../../_shared/Modal';
+import DeleteIcon from '../../assests/delete.png';
+import ViewIcon from '../../assests/view-file.png';
+import { verifyFile } from '../../_util/verifyFile';
 
 export const UploadDocuments = () => {
 
@@ -25,9 +28,12 @@ export const UploadDocuments = () => {
     }
 
     const onFileSelect = (e) => {
-        const selectedFile    = e.target.files[0];        
-        updateState({selectedFile});//, showImageEditor: true
-        //const isImage   = selectedFile['type'].split('/')[0] === 'image';
+        const acceptedFileTypes = 'image/jpg, image/jpeg, image/gif, image/png, txt, doc, docx, pdf';
+        const isVerified        = verifyFile(e.target.files,acceptedFileTypes);
+        if (isVerified) {
+            const selectedFile    = e.target.files[0];        
+            updateState({selectedFile});
+        }
     }
 
     const onChange = (e) => {
@@ -121,20 +127,16 @@ export const UploadDocuments = () => {
                             {description}
                         </td>
                         <td>
-                            <span
-                                className='file'
-                                onClick={() => onViewFile(i)}
-                            >
-                                View
-                                </span>
-                        </td>
-                        <td>
-                            <span
-                                className='file'
-                                onClick={() => onDeleteFile(i)}
-                            >
-                                Delete
-                                </span>
+                            <img 
+                                className='file' 
+                                onClick={() => onViewFile(i)} 
+                                src={ViewIcon} 
+                                alt='View' />                                
+                            <img 
+                                className='file' 
+                                onClick={() => onDeleteFile(i)} 
+                                src={DeleteIcon} 
+                                alt='Delete' />
                         </td>
                     </tr>
                 );
@@ -148,6 +150,13 @@ export const UploadDocuments = () => {
         if (hasFiles) {
             return (
                 <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Decription</th>
+                            <th colSpan='2'>Actions</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         {renderFilesRow(files)}
                     </tbody>

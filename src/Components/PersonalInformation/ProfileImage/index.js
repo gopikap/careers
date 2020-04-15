@@ -36,8 +36,9 @@ export const ProfileImage = () => {
         //ToDO save the url to a paritcular employee in firebase
     }
  
-    const onChange = e => {
-        const isVerified = verifyFile(e.target.files);
+    const onChange = e => {        
+        const acceptedFileTypes = 'image/jpg, image/jpeg, image/gif, image/png';
+        const isVerified        = verifyFile(e.target.files,acceptedFileTypes);
         if (isVerified) {
             const selectedFile    = e.target.files[0];        
             updateState({selectedFile, showImageEditor: true});

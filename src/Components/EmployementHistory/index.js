@@ -13,10 +13,12 @@ export const EmploymentHistory = () => {
         from: '',
         till: ''
     };
+
     const initialState  = {
         employement:        initialData,
         showModal:          false,
-        emptyFieldsError:   false,
+        emptyFieldsError:   false,                        
+        hasDatesError:      false,
         employementList:    [],
         employeementFields: [
             {
@@ -80,7 +82,7 @@ export const EmploymentHistory = () => {
         const updatedEmployement = {
             ...state.employement,
             [name]: value
-        }
+        }        
         const updatedFields = state.employeementFields.map(field => {
             if ( field.name === name ) { 
                 field.touched  = true
@@ -93,7 +95,26 @@ export const EmploymentHistory = () => {
         });
     }
 
-     const onAdd = () => {
+    const dateValidation = () => {
+        const { from, till }    = state.employement;
+        const fromDate          = new Date(from);
+        const hasTillDate       = (till !== null || till !== '');        
+        if (hasTillDate) {
+            const tillDate = new Date(till);
+            //From date show be lessthan till date.
+            if (fromDate > tillDate)
+                return false;
+        }
+        return true;
+    }
+
+    const onAdd = () => {
+        const isValidDate = dateValidation();
+        if (!isValidDate) {
+            updateState({hasDatesError: true});
+            return;
+        }
+
         const hasEmptyFields  =  getRequiredEmptyFields(state.employeementFields, state.employement);
         if (hasEmptyFields) {
             updateState({emptyFieldsError: true});
@@ -113,6 +134,7 @@ export const EmploymentHistory = () => {
         updateState({
             employementList:    updatedEmployementList,
             emptyFieldsError:   false,
+            hasDatesError:      false,
             employement:        initialData,
             employeementFields: updatedFields
         });
@@ -148,6 +170,7 @@ export const EmploymentHistory = () => {
                 data            ={state.employement}
                 onAdd           ={onAdd}
                 hasEmptyFields  ={state.emptyFieldsError}
+                hasDatesError   ={state.hasDatesError}
             />
         </>        
     )

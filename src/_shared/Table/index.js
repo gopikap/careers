@@ -40,7 +40,7 @@ export const Table = ({ tableRows, onDelete, tableHeaders}) => {
                             <tr key={i}>
                                 {renderTableRow(tableRow)}
                                 <td>
-                                    <img onClick={() => onDelete(i)} src={DeleteIcon} alt='Delete' />                                
+                                    <img className='file' onClick={() => onDelete(i)} src={DeleteIcon} alt='Delete' />                                
                                 </td>
                             </tr>
                         );

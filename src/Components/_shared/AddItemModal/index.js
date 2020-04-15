@@ -3,7 +3,7 @@ import { Modal } from "../../../_shared/Modal"
 import { InputForm } from "../InputForm"
 
 export const AddItemModal = (props) => {
-    const { show, onClose, title, formFields, onChange, data, onAdd, hasEmptyFields } = props;
+    const { show, onClose, title, formFields, onChange, data, onAdd, hasEmptyFields, hasDatesError } = props;
     return(
         <Modal
                 className   ='modal'
@@ -16,6 +16,7 @@ export const AddItemModal = (props) => {
                     sectionData     ={data}
                     onAdd           ={onAdd}
                     hasEmptyFields  ={hasEmptyFields}
+                    hasDatesError   ={hasDatesError}
                 />
         </Modal>
     )

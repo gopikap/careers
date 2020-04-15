@@ -5,14 +5,13 @@ import { CheckValidity } from '../../../_util/checkValidity';
 
 export const InputForm = (props) => {
 
-    const { formFields, sectionData, onChange, onAdd, hasEmptyFields }    = props;    
+    const { formFields, sectionData, onChange, onAdd, hasEmptyFields, hasDatesError }    = props;    
     let isValid = true;
     let isTouched=false;
-
     const renderFields = (formFields) => {  
-        return formFields.map(formField => {
-            
+        return formFields.map(formField => {            
             const {label, name, type, isMulti, options, placeholder, validations, touched} = formField;
+            delete sectionData.hasDatesError;
             const value = sectionData && sectionData[name]; 
             isValid     = CheckValidity(value, validations);
             isTouched   = touched;
@@ -47,6 +46,7 @@ export const InputForm = (props) => {
                     buttonClass='addButton'
                 />
                  {hasEmptyFields ? <span className='error-message'>Please enter required fields</span> : null}
+                 {hasDatesError ? <span className='error-message'>Please enter valid from and till dates</span> : null }
                 </>
             : null }
         </div>

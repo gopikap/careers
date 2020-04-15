@@ -1,7 +1,6 @@
 input[type=file] {
     border-bottom: none !important;
 }
-.file {
-    cursor: pointer;
-    color:blue;
+#upload {
+    display: none;
 }
