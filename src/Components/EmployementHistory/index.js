@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//import { generateKey } from '../../_util/generateKey';
 import { Button } from '../../_shared/Button';
 import { Table } from '../../_shared/Table';
 import { getRequiredEmptyFields } from '../../_util/getRequiredEmptyFields';
