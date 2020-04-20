@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Button } from '../../_shared/Button';
-import { Modal } from '../../_shared/Modal';
-import DeleteIcon from '../../assests/delete.png';
-import ViewIcon from '../../assests/view-file.png';
-import { verifyFile } from '../../_util/verifyFile';
+import { Button } from '../../../_shared/Button';
+import { Modal } from '../../../_shared/Modal';
+import DeleteIcon from '../../../assests/delete.png';
+import ViewIcon from '../../../assests/view-file.png';
+import { verifyFile } from '../../../_util/verifyFile';
 
 export const UploadDocuments = () => {
 

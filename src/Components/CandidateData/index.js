@@ -1,9 +1,9 @@
 import React from 'react';
-import { PersonalInformation } from '../PersonalInformation';
-import { EducationQualification } from '../EducationQualification';
-import { EmploymentHistory } from '../EmployementHistory';
+import { PersonalInformation } from './PersonalInformation';
+import { EducationQualification } from './EducationQualification';
+import { EmploymentHistory } from './EmployementHistory';
 import { Section } from '../../_shared/Section';
-import { UploadDocuments } from '../UploadDocuments';
+import { UploadDocuments } from './UploadDocuments';
 
 export const CandidateData = () => {
     const sections = [
@@ -41,8 +41,7 @@ export const CandidateData = () => {
             <h2>Candidate Job Application Form</h2>
             <div className='sections-container'>
             {sections.map( section => renderSection(section))}
-            </div>
-                        
+            </div>      
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button } from '../../_shared/Button';
-import { Table } from '../../_shared/Table';
-import { getRequiredEmptyFields } from '../../_util/getRequiredEmptyFields';
-import { AddItemModal } from '../_shared/AddItemModal';
+import { Button } from '../../../_shared/Button';
+import { Table } from '../../../_shared/Table';
+import { getRequiredEmptyFields } from '../../../_util/getRequiredEmptyFields';
+import { AddItemModal } from '../../_shared/AddItemModal';
 
 export const EducationQualification = () => {
     const initialData = {

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import defaultImage from '../../../assests/images/user_default.png';
+import defaultImage from '../../../../assests/images/user_default.png';
 //import { axiosInstance } from '../../../api/axios-api';
 import AvatarEditor from 'react-avatar-editor';
-import { verifyFile } from '../../../_util/verifyFile';
+import { verifyFile } from '../../../../_util/verifyFile';
 
 export const ProfileImage = () => {  
 

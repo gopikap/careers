@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ProfileImage } from './ProfileImage';
-import { InputForm } from '../_shared/InputForm';
+import { InputForm } from '../../_shared/InputForm';
 
 export const PersonalInformation = () => {
     const [personalInfo, setPersonalInfo]   = useState({

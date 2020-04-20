@@ -41,8 +41,8 @@ export const InputForm = (props) => {
             { onAdd ? 
                 <>
                 <Button
-                    onClick={onAdd}
-                    title='Add'
+                    onClick     ={onAdd}
+                    title       ='Add'
                     buttonClass='addButton'
                 />
                  {hasEmptyFields ? <span className='error-message'>Please enter required fields</span> : null}
