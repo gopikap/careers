@@ -35,11 +35,11 @@ export const SignUp = () => {
         },
         {
             name: 'password',
-            label: 'Name',
+            label: 'Password',
             type: 'password',
             validations: {
                 required: true
-            },
+            },  
             touched: false
         },
     ]);
@@ -49,9 +49,10 @@ export const SignUp = () => {
 
     const createUserWithEmailAndPasswordHandler = (event, email, password) => {
         event.preventDefault();
-        setEmail("");
-        setPassword("");
-        setDisplayName("");
+        
+        // setEmail("");
+        // setPassword("");
+        // setDisplayName("");
     };
 
     const onChange = (e) => {
@@ -81,6 +82,10 @@ export const SignUp = () => {
                 onClick={createUserWithEmailAndPasswordHandler}
                 title='Sign In'
             />
+            <p id='info'>
+                Already have an account? &nbsp;
+                <Link to="/">Sign in here </Link> 
+            </p>
         </div>
     );
 };

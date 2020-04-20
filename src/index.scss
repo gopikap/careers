@@ -1,4 +1,6 @@
-@import './Components/Layout/Layout.scss';
+@import './Components/Layouts/DashboardLayout/index.scss';
+@import './Components/Layouts/AuthLayout/index.scss';
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
