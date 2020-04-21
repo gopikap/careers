@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import defaultImage from '../../../../assests/images/user_default.png';
 //import { axiosInstance } from '../../../api/axios-api';
-import AvatarEditor from 'react-avatar-editor';
 import { verifyFile } from '../../../../_util/verifyFile';
+//https://github.com/mosch/react-avatar-editor/issues/263
+const AvatarEditor = require('react-avatar-editor').default;
 
 export const ProfileImage = () => {  
 

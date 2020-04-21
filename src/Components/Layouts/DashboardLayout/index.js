@@ -1,9 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { Navigation } from '../../Navigation';
 
 export const DashboardLayout = (props) => {
     return(
         <div id="layout-container">
+            <Navigation/>
             {props.children}
         </div>
     )
