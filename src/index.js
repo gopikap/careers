@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import { AuthLayoutRoute } from './Components/Layouts/AuthLayout';
 import { DashboardLayoutRoute } from './Components/Layouts/DashboardLayout';
 /*Components */
-import { SignIn } from './Components/SignIn';
+import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
 import { PasswordReset } from './Components/PasswordReset';
 import { CandidateData } from './Components/CandidateData'
