@@ -9,6 +9,9 @@
     height: 30px;
     font-weight: $bold;
     border-radius: 10px;
+    &:disabled {
+        background-color: gray;
+    }
 }
 .addButton {
     margin-left:45%;

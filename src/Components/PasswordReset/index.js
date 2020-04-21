@@ -1,61 +1,70 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { InputForm } from "../_shared/InputForm";
+import { Button } from "../../_shared/Button";
 
 export const PasswordReset = () => {
-  const [email, setEmail] = useState("");
-  const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
-  const [error, setError] = useState(null);
-  const onChangeHandler = event => {
-    const { name, value } = event.currentTarget;
-    if (name === "userEmail") {
-      setEmail(value);
-    }
-  };
-  const sendResetEmail = event => {
-    event.preventDefault();
-  };
-  return (
-    <div className="mt-8">
-      <h1 className="text-xl text-center font-bold mb-3">
-        Reset your Password
-      </h1>
-      <div className="border border-blue-300 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
-        <form action="">
-          {emailHasBeenSent && (
-            <div className="py-3 bg-green-400 w-full text-white text-center mb-3">
-              An email has been sent to you!
+
+    const [email, setEmail] = useState("");
+    //   const [resetField, setResetFileds] = useState([
+    //     {
+    //         name: 'email',
+    //         label: 'Email',
+    //         type: 'text',
+    //         placeholder: 'john@yembo.ai',
+    //         validations: {
+    //             required: true,
+    //             isEmail: true
+    //         },
+    //         touched: false
+    //     }
+    // ]);
+
+    const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
+    const [error, setError] = useState(null);
+
+    const onChange = event => {
+        const { name, value } = event.target;
+        if (name === "email") {
+            setEmail(value);
+        }
+    };
+
+    const sendResetEmail = event => {
+        event.preventDefault();
+    };
+
+    return (
+        <div id='password-reset-container'>
+            <h2>Reset your Password</h2>
+            {emailHasBeenSent && (
+                <div>
+                    An email has been sent to you!
+                </div>
+            )}
+            {error !== null && (
+                <div>
+                    {error}
+                </div>
+            )}
+            <div id='input-row' className='textFields'>
+                <label>Email <span className='error-message'>*</span></label>
+                <input
+                    type='text'
+                    onChange={onChange}
+                    placeholder='example@eg.com'
+                    name='email'
+                    value={email}
+                />
             </div>
-          )}
-          {error !== null && (
-            <div className="py-3 bg-red-600 w-full text-white text-center mb-3">
-              {error}
-            </div>
-          )}
-          <label htmlFor="userEmail" className="w-full block">
-            Email:
-          </label>
-          <input
-            type="email"
-            name="userEmail"
-            id="userEmail"
-            value={email}
-            placeholder="Input your email"
-            onChange={onChangeHandler}
-            className="mb-3 w-full px-1 py-2"
-          />
-          <button
-            className="w-full bg-blue-400 text-white py-3"
-          >
-            Send me a reset link
-          </button>
-        </form>
-        <Link
-         to ="/"
-          className="my-2 text-blue-700 hover:text-blue-800 text-center block"
-        >
-          &larr; back to sign in page
-        </Link>
-      </div>
-    </div>
-  );
+            <Button
+                onClick={sendResetEmail}
+                title='Send me a reset link'
+            />
+            <p id='info'>
+                <Link to="/"> &larr; back to sign in page </Link>
+            </p>
+        </div>
+
+    );
 };

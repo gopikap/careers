@@ -1,18 +1,23 @@
 import React, { useState } from "react";
-import { Link} from 'react-router-dom';
-import { auth } from "firebase";
+import { compose } from 'recompose';
+import { Link, withRouter } from 'react-router-dom';
+import { withFirebase } from '../../Firebase';
 import { InputForm } from "../_shared/InputForm";
 import { Button } from "../../_shared/Button";
+import './index.scss';
+import { Loader } from "../../_shared/Loader";
 
-export const SignUp = () => {
+const SignUp = (props) => {
     const initialState = {
+        displayName:    '',
         email:          '',
         password:       '',
-        displayName:    ''
+        confirmPassword:''        
     }
+    const { authUser }    = props;
     const [signUpFields, setSignUpFileds] = useState([       
         {
-            name: 'name',
+            name: 'displayName',
             label: 'Name',
             type: 'text',
             placeholder: 'John',
@@ -42,17 +47,36 @@ export const SignUp = () => {
             },  
             touched: false
         },
+        {
+            name: 'confirmPassword',
+            label: 'Confirm Password',
+            type: 'password',
+            validations: {
+                required: true
+            },  
+            touched: false
+        },
     ]);
 
-    const [newUser, setNewUser] = useState(initialState);
-    const [error, setError] = useState(null);
+    const [newUser, setNewUser]     = useState(initialState);
+    const [error, setError]         = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const createUserWithEmailAndPasswordHandler = (event, email, password) => {
-        event.preventDefault();
-        
-        // setEmail("");
-        // setPassword("");
-        // setDisplayName("");
+    const createUserWithEmailAndPasswordHandler = () => {
+        const {email, password} = newUser;
+        setIsLoading(true);
+        props.firebase
+            .doCreateUserWithEmailAndPassword(email, password) 
+            .then(
+                authUser => { 
+                    //If successfully created, then set to intial state
+                    setNewUser({...initialState });
+                    setIsLoading(false);
+                    props.history.push('/');
+                }) 
+            .catch(
+                error => { setError({ error }); }
+            );        
     };
 
     const onChange = (e) => {
@@ -70,9 +94,14 @@ export const SignUp = () => {
         setSignUpFileds(updatedFields);
         setNewUser(updatedNewUser);
     };
+
+    const isInvalid = 
+        newUser.password !== newUser.confirmPassword || newUser.password === '' 
+        || newUser.email === '' || newUser.displayName === '';
+
     return (
-        <div id='signIn-container'>
-            <h2>Sign In</h2>
+        <div id='signUp-container'>
+            <h2>Sign Up</h2>
             <InputForm
                 formFields={signUpFields}
                 onChange={onChange}
@@ -80,12 +109,17 @@ export const SignUp = () => {
             />
             <Button
                 onClick={createUserWithEmailAndPasswordHandler}
-                title='Sign In'
+                title='Sign Up'
+                disabled={isInvalid}
             />
+            {isLoading ? <Loader /> : ''}
             <p id='info'>
                 Already have an account? &nbsp;
                 <Link to="/">Sign in here </Link> 
             </p>
+            {error && <p>{error.message}</p>}
         </div>
     );
 };
+
+export default compose(withRouter, withFirebase)(SignUp);
