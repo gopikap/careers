@@ -5,21 +5,18 @@ import { getRequiredEmptyFields } from '../../../_util/getRequiredEmptyFields';
 import { AddItemModal } from '../../_shared/AddItemModal';
 
 export const EducationQualification = () => {
-    const initialData = {
-        qualification: '',
-        instituteName: '',
-        university: '',
-        subject: '',
-        year: '',
-        result: ''
-    }
 
     const initialState  = {
-        education:        initialData,
+        education:          {},
         showModal:          false,
         emptyFieldsError:   false,
-        educationList:    [],
-        educationFields: [
+        educationList:      []        
+    }
+
+    const [state, setState]     = useState(initialState);
+    const updateState           = data => setState(prevState => ({ ...prevState, ...data }));
+
+    const educationFields       = [
             {
                 name: 'qualification',
                 label: 'Qualification',
@@ -87,10 +84,7 @@ export const EducationQualification = () => {
                 ],
                 required: false
             }
-        ]
-    }
-    const [state, setState] = useState(initialState);
-    const updateState = data => setState(prevState => ({ ...prevState, ...data }));
+    ]
 
     const onClick = () => {
         updateState({showModal: true});     
@@ -105,29 +99,18 @@ export const EducationQualification = () => {
         const updatedEducation = {
             ...state.education,
             [name]: value
-        }
-        const updatedFields = state.educationFields.map(field => {
-            if ( field.name === name ) { 
-                field.touched  = true
-            }
-            return field;
-        });
+        };        
         updateState({
-            education: updatedEducation, 
-            educationFields: updatedFields
+            education: updatedEducation
         });
     }
 
     const onAdd = () => {
-        const hasEmptyFields  =  getRequiredEmptyFields(state.educationFields, state.education);
+        const hasEmptyFields  =  getRequiredEmptyFields(educationFields, state.education);
         if (hasEmptyFields) {
             updateState({emptyFieldsError: true});
             return;
         }
-        const updatedFields = state.educationFields.map(field => {
-            field.touched  = false;
-            return field;
-        });
 
         const updatedEducationList = [
             ...state.educationList,
@@ -137,9 +120,9 @@ export const EducationQualification = () => {
         updateState({
             educationList:      updatedEducationList,
             emptyFieldsError:   false,
-            education:          initialData,
-            educationFields:    updatedFields
+            education:          {}
         });
+
         toggleModal();
     }
 
@@ -153,7 +136,7 @@ export const EducationQualification = () => {
         <>
             <p className='info'>Please add the education qualifications! </p>
             <Table
-                tableHeaders={state.educationFields}
+                tableHeaders={educationFields}
                 tableRows   ={state.educationList}
                 onDelete    ={onDelete} 
             />
@@ -165,8 +148,8 @@ export const EducationQualification = () => {
                 show            ={state.showModal}
                 onClose         ={toggleModal}
                 title           ='Add Education'
-                formFields      ={state.educationFields}
-                onChange        ={onChange}
+                formFields      ={educationFields}
+                onChange        ={onChange} 
                 data            ={state.education}
                 onAdd           ={onAdd}
                 hasEmptyFields  ={state.emptyFieldsError}

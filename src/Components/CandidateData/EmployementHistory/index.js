@@ -5,66 +5,57 @@ import { getRequiredEmptyFields } from '../../../_util/getRequiredEmptyFields';
 import { AddItemModal } from '../../_shared/AddItemModal';
 
 export const EmploymentHistory = () => {
-    const initialData   = {
-        companyName: '', 
-        designation: '',
-        responsibility: '',
-        from: '',
-        till: ''
-    };
-
+    
     const initialState  = {
-        employement:        initialData,
+        employement:        {},
         showModal:          false,
         emptyFieldsError:   false,                        
         hasDatesError:      false,
-        employementList:    [],
-        employeementFields: [
-            {
-                name: 'companyName',
-                label: 'Company Name',
-                type: 'text',
-                placeholder: 'Company Co',
-                validations: {
-                    required: true
-                },
-                touched: false
-            },        
-            {
-                name: 'designation',
-                label: 'Designation',
-                type: 'text',
-                placeholder: 'Software Developer',
-                validations: {
-                    required: true
-                },
-                touched: false
-            },
-            {
-                name: 'responsibility',
-                label: 'Job responsibility',
-                type: 'text',
-                isMulti: true,
-                placeholder: 'Software Developer',
-                touched: false
-            },
-            {
-                name: 'from',
-                label: 'From',
-                type: 'date',
-                validations: {
-                    required: true
-                },
-                touched: false
-            },
-            {
-                name: 'till',
-                label: 'Till',
-                type: 'date',
-                touched: false
-            }
-        ]
+        employementList:    []        
     }
+
+    const employeementFields = [
+        {
+            name: 'companyName',
+            label: 'Company Name',
+            type: 'text',
+            placeholder: 'Company Co',
+            validations: {
+                required: true
+            }
+        },        
+        {
+            name: 'designation',
+            label: 'Designation',
+            type: 'text',
+            placeholder: 'Software Developer',
+            validations: {
+                required: true
+            }
+        },
+        {
+            name: 'responsibility',
+            label: 'Job responsibility',
+            type: 'text',
+            isMulti: true,
+            placeholder: 'Software Developer'
+        },
+        {
+            name: 'from',
+            label: 'From',
+            type: 'date',
+            validations: {
+                required: true
+            }
+        },
+        {
+            name: 'till',
+            label: 'Till',
+            type: 'date',
+            touched: false
+        }
+    ];
+
     const [state, setState] = useState(initialState);
     const updateState = data => setState(prevState => ({ ...prevState, ...data }));
     
@@ -81,16 +72,9 @@ export const EmploymentHistory = () => {
         const updatedEmployement = {
             ...state.employement,
             [name]: value
-        }        
-        const updatedFields = state.employeementFields.map(field => {
-            if ( field.name === name ) { 
-                field.touched  = true
-            }
-            return field;
-        });
+        }   
         updateState({
-            employement: updatedEmployement, 
-            employeementFields: updatedFields
+            employement: updatedEmployement
         });
     }
 
@@ -114,16 +98,11 @@ export const EmploymentHistory = () => {
             return;
         }
 
-        const hasEmptyFields  =  getRequiredEmptyFields(state.employeementFields, state.employement);
+        const hasEmptyFields  =  getRequiredEmptyFields(employeementFields, state.employement);
         if (hasEmptyFields) {
             updateState({emptyFieldsError: true});
             return;
         }
-
-        const updatedFields = state.employeementFields.map(field => {
-            field.touched  = false;
-            return field;
-        });
 
         const updatedEmployementList = [
             ...state.employementList,
@@ -134,8 +113,7 @@ export const EmploymentHistory = () => {
             employementList:    updatedEmployementList,
             emptyFieldsError:   false,
             hasDatesError:      false,
-            employement:        initialData,
-            employeementFields: updatedFields
+            employement:        {}
         });
         toggleModal();
     }
@@ -151,7 +129,7 @@ export const EmploymentHistory = () => {
             <p className='info'>Please add the revelant job experiences. </p>
             { state.employementList.length > 0 ? 
                 <Table
-                    tableHeaders={state.employeementFields}
+                    tableHeaders={employeementFields}
                     onDelete    ={onDelete}
                     tableRows   ={state.employementList}
                 /> : null
@@ -164,7 +142,7 @@ export const EmploymentHistory = () => {
                 show            ={state.showModal}
                 onClose         ={toggleModal}
                 title           ='Add Employement'
-                formFields      ={state.employeementFields}
+                formFields      ={employeementFields}
                 onChange        ={onChange}
                 data            ={state.employement}
                 onAdd           ={onAdd}

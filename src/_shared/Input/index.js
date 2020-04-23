@@ -4,19 +4,19 @@ import { TextField } from './TextField';
 
 export const Input = (props) => {
     const { label, name, type, value, options, 
-            placeholder, onChange, isMulti, 
-            isValid, touched, required }            = props;
-    
+            placeholder, onChange, isMulti, validations } = props;
+
+    const required =  validations && validations.required;
+
     const textInput = <TextField 
-                            key={name}
-                            type={type}
-                            value={value}
-                            name={name}
-                            placeholder={placeholder}
-                            isMulti={isMulti}
-                            isValid={isValid}
-                            touched={touched}
-                            onChange={onChange}
+                            key         ={name}
+                            type        ={type}
+                            value       ={value}
+                            name        ={name}
+                            placeholder ={placeholder}
+                            isMulti     ={isMulti}
+                            onChange    ={onChange}
+                            validations ={validations}
                         />
 
     const renderOptions = () => {
@@ -57,9 +57,6 @@ export const Input = (props) => {
                 {label} { required ? <span className='error-message'>*</span> : null }
             </label>            
              {renderInputs()}     
-             { (touched && !isValid) ? (
-                    <p className='error-message'>Enter a valid {label}</p>
-                ) : null}      
-        </div>
+        </div> 
     )
 }

@@ -1,21 +1,21 @@
 import React from 'react';
 import { Input } from '../../../_shared/Input';
 import { Button } from '../../../_shared/Button';
-import { CheckValidity } from '../../../_util/checkValidity';
+//import { CheckValidity } from '../../../_util/checkValidity';
 
 export const InputForm = (props) => {
 
-    const { formFields, sectionData, onChange, onAdd, hasEmptyFields, hasDatesError }    = props;    
-    let isValid = true;
-    let isTouched=false;
-    const renderFields = (formFields) => {  
-        return formFields.map(formField => {            
-            const {label, name, type, isMulti, options, placeholder, validations, touched} = formField;
-            delete sectionData.hasDatesError;
-            const value = sectionData && sectionData[name]; 
-            isValid     = CheckValidity(value, validations);
-            isTouched   = touched;
+    const { formFields, sectionData, onChange, onAdd, hasEmptyFields, hasDatesError }    = props;
 
+    const renderFields = (formFields) => {
+        return formFields.map(formField => {            
+            const {label, name, type, isMulti, options, placeholder, validations} = formField;
+            let value = '';
+            if (sectionData) {
+                delete sectionData.hasDatesError;
+                value = sectionData && sectionData[name]; 
+            }
+            
             return (
                 <Input 
                     key         ={name}
@@ -27,9 +27,7 @@ export const InputForm = (props) => {
                     isMulti     ={isMulti}
                     placeholder ={placeholder}
                     onChange    ={onChange}
-                    touched     ={isTouched}
-                    isValid     ={isValid}
-                    required    ={validations && validations.required}
+                    validations ={validations}
                 />
             );            
         });

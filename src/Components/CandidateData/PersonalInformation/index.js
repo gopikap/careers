@@ -3,17 +3,8 @@ import { ProfileImage } from './ProfileImage';
 import { InputForm } from '../../_shared/InputForm';
 
 export const PersonalInformation = () => {
-    const [personalInfo, setPersonalInfo]   = useState({
-        name: '', 
-        email: '',
-        gender: '',
-        dob: '',
-        phone: '',
-        address: '',
-        zip: ''
-    });
-    
-    const [personalFields, setPersonalFileds] = useState([
+    const [personalInfo, setPersonalInfo]   = useState();    
+    const personalFields = [
         {
             name: 'name',
             label: 'Name',
@@ -85,7 +76,7 @@ export const PersonalInformation = () => {
             },
             touched: false
         }
-    ]);
+    ];
 
     const onChange = (e) => {        
         const {name, value} = e.target;      
@@ -93,14 +84,7 @@ export const PersonalInformation = () => {
             ...personalInfo,
             [name]: value
         }
-        const updatedFields = personalFields.map(field => {
-            if ( field.name === name ) { 
-                field.touched  = true
-            }
-            return field;
-        });
-        
-        setPersonalFileds(updatedFields);
+
         setPersonalInfo(updatedItem);        
     }
 
